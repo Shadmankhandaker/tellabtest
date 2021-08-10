@@ -1,0 +1,59 @@
+To run with https without receiving warnings, each host must have its
+own certificate...  We are getting these for free from Let's Encrypt,
+https://letsencrypt.org
+
+To get the certificate, we use the certbot ACME client.
+certbot.eff.org
+
+1) ssh to server
+
+2) add certbot PPA repo
+	(these commands are encapsulated in the script install_certbot_repo.sh)
+
+# sudo apt-get update
+# sudo apt-get install software-properties-common
+# sudo add-apt-repository universe
+# sudo add-apt-repository ppa:certbot/certbot
+# sudo apt-get update
+
+3) install certbot
+
+# sudo apt-get install certbot
+
+4) run certbot
+
+Here we describe the method that involves shutting down the web server.
+Because we are doing port forwarding for the express server,
+it should suffice if we simply disable the forwarding temporarily???
+
+# sudo certbot certonly --standalone
+
+After this, the following message prints:
+
+IMPORTANT NOTES:
+ - Congratulations! Your certificate and chain have been saved at:
+   /etc/letsencrypt/live/lab2.tellab.org/fullchain.pem
+   Your key file has been saved at:
+   /etc/letsencrypt/live/lab2.tellab.org/privkey.pem
+   Your cert will expire on 2019-09-28. To obtain a new or tweaked
+   version of this certificate in the future, simply run certbot
+   again. To non-interactively renew *all* of your certificates, run
+   "certbot renew"
+ - Your account credentials have been saved in your Certbot
+   configuration directory at /etc/letsencrypt. You should make a
+   secure backup of this folder now. This configuration directory will
+   also contain certificates and private keys obtained by Certbot so
+   making regular backups of this folder is ideal.
+
+###################################
+
+What machine(s) was/were this done on???
+/etc/letsencrypt is present on nitsuga, but not lab2...
+
+#####################################
+
+1/14/2020 - api is failing with message in javascript console about an expired
+certificate - how to renew?
+
+% certbot renew
+

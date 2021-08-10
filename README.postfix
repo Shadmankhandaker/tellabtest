@@ -1,0 +1,87 @@
+After we found that gmail craps out after sending 80 emails,
+we installed postfix (on lab2) to handle sending our own emails.
+
+After running 'sudo apt install postfix', this printed:
+
+
+Postfix (main.cf) is now set up with a default configuration.  If you need to 
+make changes, edit /etc/postfix/main.cf (and others) as needed.  To view 
+Postfix configuration values, see postconf(1).
+
+After modifying main.cf, be sure to run 'service postfix reload'.
+
+Initial settings per web tutorial:
+https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-postfix-on-ubuntu-16-04
+
+Can send mail to user on local machine, and can send mail to gmail.
+Can't send mail from nitsuga, although mail command exists...  firewall?
+
+Another tutorial:
+https://www.linux.com/tutorials/install-and-configure-postfix-mail-server/
+
+% telnet localhost 25
+% telnet mail.tellab.org 25
+
+- both work!
+
+Edit /etc/postfix/main.cf
+
+After setting mynetworks, can run
+% telnet 172.16.190.13 25
+from dev-api (using the local address of mail.tellab.org, not the public address)
+
+But 
+% telnet mail.tellab.org 25
+does NOT work from dev-api...
+It SAID it will try 64.90.62.162 - where did that address come from???
+The address for lab2.tellab.org is 129.114.17.45...
+
+% telnet lab2.tellab.org 25
+does not work either???
+
+After disabling the firewall on dev-api,
+an attempt to connect to mail.tellab.org produces this:
+220 pdx1-sub0-mail-a41.g.dreamhost.com ESMTP
+
+So mail.tellab.org must be a reserved name???
+
+Oops - the domain name that I set previously was:  dev-mail.tellab.org !
+
+Try connecting from nitsuga...
+
+*********************
+
+Opened port 587 for submission by editing master.cf and un-commenting 'submission' line
+
+**********************
+
+To get a cert for openssl, the two certs in the certbot-produces server.cert file
+had to have their order switched within the file, verified by:
+
+% openssl verify -purpose sslserver s2.cert
+s2.cert: OK
+
+
+**********
+
+After more trial-and-error, created snakeoil cert and key using openssl program:
+% sudo make-ssl-cert generate-default-snakeoil --force-overwrite
+ 
+Verified that the hashed match:
+
+% sudo openssl rsa -noout -modulus -in /etc/ssl/private/ssl-cert-snakeoil.key | openssl md5
+(stdin)= b649979094cb079213b826ec8222d2f6
+% openssl x509 -noout -modulus -in /etc/ssl/certs/ssl-cert-snakeoil.pem | openssl md5
+(stdin)= b649979094cb079213b826ec8222d2f6
+
+This sends single emails, and seemed to send several hundred, but not all that were expected!?
+
+Still can't receive mail sent to jbmull@dev-mail.tellab.org from outside...
+
+
+
+
+
+
+
+ 

@@ -1,0 +1,22 @@
+
+On first use of git, need to set user parameters:
+
+git config --global user.email "jbmull@gmail.com"
+git config --global user.name "Jeff Mulligan"
+
+To change default editor from nano to vim:
+
+git config --global core.editor vim
+
+To squash commits:
+git rebase -i HEAD~[# commits you want to squash]
+
+In the text editor, edit such that:
+pick f392171 Added new feature X
+pick ba9dd9a Added new elements to page design
+pick df71a27 Updated CSS for new elements
+
+becomes:
+pick f392171 Added new feature X
+squash ba9dd9a Added new elements to page design
+squash df71a27 Updated CSS for new elements

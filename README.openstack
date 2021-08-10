@@ -1,0 +1,58 @@
+
+openstack is an alternative to the normal jetstream instances,
+that offers more control over network filtering.  I first starting
+looking at this when trying to set up a mail server.  I shelved
+the mail server project, but did manage to set up a single openstack
+instance called postoffice (currently stopped).  However, I didn't make
+good notes on what I did to set it up.  I am now going to try to replicate
+that process, this time leaving a record of what was done.
+
+Log in at https://tacc.jetstream-cloud.org/
+(domain: tacc    username: tg858859  password:  I saved it somewhere else)
+
+There is a command line interface that allows one to do lots of things...
+It is called openstack, and is installed on nitsuga (I don't remember how I
+installed it, but there are instructions at https://iujetstream.atlassian.net/wiki/spaces/JWT/pages/40796180/Installing+the+Openstack+clients+on+OS+X)
+
+% openstack image list
+Missing value auth-url required for auth plugin password
+
+There are config parameters in ~/.openrc - they are bash commands; so:
+% bash
+# source ~/.openrc
+# openstack image list
+
+That worked, and listed a bazillion active images (belonging to other people?)
+
+
+Hmm, I wonder if I ever got it set up and working???
+
+
+Alternatively, there is a "dashboard" called Horizon.
+https://tacc.jetstream-cloud.org/dashboard
+It appears our account is only on TACC... (not IU).
+
+
+references:
+
+openStack End User Guide:  https://docs.openstack.org/train/user/
+
+jetstream public wiki: https://iujetstream.atlassian.net/wiki/spaces/JWT/pages/35913730/OpenStack+command+line
+
+
+Steps from https://iujetstream.atlassian.net/wiki/spaces/JWT/pages/44826638/Using+the+OpenStack+Horizon+GUI+Interface
+
+1) Create Private Network
+  Project->Network->Network Topology
+  	(shows public and tellab-net)
+
+  Project->Network->Security Groups
+  	(shows default and tellab-security-group)
+	created new security group and enabled ssh from nitsuga
+
+  Project->Compute->Key pairs
+  	(shows a key pair "mail-api-keys")
+	Import public key
+
+  Project->Compute->Instances
+  	Launch Instance

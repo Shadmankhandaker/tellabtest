@@ -1,0 +1,60 @@
+
+CORS is a security policy that says who we can talk to.
+There are settings that are made in a couple of places:
+
+First, the api server host and port are configured in
+pageServer/lib/client/apiServerHost.js
+Originally, the was edited by hand in constants.js,
+but now the script installConstants.csh copies the contents
+from a location-specific file based on the value of $HOSTNAME.
+This also sets the value of default_root, the url of the page
+server.
+
+After switching machines, and having the wrong hand-edited sessions,
+the first error is encountered on the client, with this
+message reported in the console:
+
+Access to XMLHttpRequest at 'https://dev-api.tellab.org/passport/user' from origin 'https://localhost:3010' has been blocked by CORS policy: The 'Access-Control-Allow-Origin' header has a value 'https://lab2.tellab.org' that is not equal to the supplied origin.
+
+(In this example, we are running on localhost, after configuring the software to run on lab2.)
+
+After fixing default_root (now in pageServer/lib/client/defaultRoot.js), the
+next error is:
+
+(what?)
+
+res.setHeader is called in page-server.js with various access control settings...
+There are similar calls in api-server.js.
+
+When loading style sheets from external sites, we see messages like:
+	Refused to load the stylesheet 'https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css'
+	because it violates the following Content Security Policy directive:
+	"style-src 'self' 'unsafe-inline' ".
+	Note that 'style-src-elem' was not explicitly set,
+	so 'style-src' is used as a fallback.
+
+Where is style-src set???
+Ans:  in pageServer/views/common/head_boilerplate.ejs
+
+
+Another error:
+
+Access to XMLHttpRequest at 'https://localhost:3030/table/experiment/deleteItems' from origin 'https://localhost:3010' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+
+This one started appearing for no apparent reason while testing on a development system.  (i.e. nothing was changed that should have affected this!?)
+
+This seemed to coincide with api failures, reporting mongo server timeout error.On restarting, the api server reports:  "Error connecting to mongodb:  MongoServerSelectionError: connection timed out
+Oops need to exit!?"
+
+This resolved for no apparent reason...  perhaps some sort of wedging at TACC?
+I was able to log into the server via the web console, all appeared normal,
+although I was not able to ssh from the development machine before that...
+
+8/22/2020:  Happening again when I try to delete 3k+ users with a
+list of ids...  On the api server I get a javascript exception
+
+PayloadTooLargeError: request entity too large
+
+
+Access to XMLHttpRequest at 'https://localhost:3030/table/user/deleteItems' from origin 'https://localhost:3010' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+

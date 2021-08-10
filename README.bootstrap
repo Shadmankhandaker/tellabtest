@@ -1,0 +1,5 @@
+The original version of the TELLab2 app used bootstrap for the
+navbar, modelled on the legacy TELLab.  This branch preserves
+that approach, while the master branch is trying to replace it
+with roll-your-own css and javascript.  It should have been done
+the other way around!?

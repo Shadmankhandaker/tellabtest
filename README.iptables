@@ -1,0 +1,38 @@
+
+To redirect traffic on port 80 (or port 443 for https),
+add these commands to /etc/rc.local
+
+
+pageServer:
+http	->	3000
+https	->	3010
+
+apiServer
+https	->	3030
+
+
+# jbm added this line to redirect http traffic to the Tellab node server
+iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 3000
+iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 443 -j REDIRECT --to-port 3000
+
+That didn't work on the xsede server, but the interface isn't called eth0!
+It's ens3...
+
+iptables -t nat -A PREROUTING -i ens3 -p tcp --dport 80 -j REDIRECT --to-port 3000
+
+Found this article:
+https://coderwall.com/p/plejka/forward-port-80-to-port-3000
+
+Two rules, one for prerouting and one for output:
+
+sudo iptables -t nat -I OUTPUT -p tcp -d 127.0.0.1 --dport 80 -j REDIRECT --to-ports 3000
+sudo iptables -t nat -I PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 3000
+
+WORKS!!!
+
+# This command shows the rules with line numbers:
+% sudo iptables -L -t nat -v --line-numbers
+
+# This command deletes rule line 1:
+% sudo iptables -t nat -D PREROUTING 1
+

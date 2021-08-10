@@ -1,0 +1,31 @@
+Cheat sheet for mongo CLI
+
+> show dbs				# show databases...
+
+For Tellab, we have:  admin, local, pumpkin...
+While on Jeff's MBP, we have:  admin, config, local, pumpkin, test...
+
+> use db
+
+> show collections
+
+For Tellab, admin db appears to be empty, while local has one collection
+"startup_log"
+
+____________________________
+
+Add admin to an account by hand:
+
+% mongo
+> use pumpkin
+> 
+
+_____________________________________________
+
+To add admin role to a user (e.g. jbmull@gmail.com), execute these commands in the mongo shell:
+
+use pumpkin
+db.user.find({username:'jbmull@gmail.com'});
+db.user.update({username:'jbmull@gmail.com'},{$set: {role:'admin'}});
+db.user.find({username:'jbmull@gmail.com'});
+

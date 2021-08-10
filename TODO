@@ -1,0 +1,42 @@
+SECURITY
+
+Set up ssl or ssh tunnel for database connections.
+May not be necessary when we are on XSEDE local network, but
+good practice...
+
+Read mongodb security tips.
+
+
+VISUALIZE EXISTING DATA & RECORDS
+
+Put demographic info on a separate page...
+
+Add experiment list and uploaded files to admin view of user record.
+
+Add admin list display of experiments and results
+
+
+
+NEW FEATURES TO ADD
+
+Add email creation page to filtered user list
+
+Add email_addr field to user structure, with backwards-compatibility
+for older, existing accounts...
+
+Allow user to change username and email address.
+
+Add admin user scan to check for bad records
+
+Add student list to instructor, add instructor list to student
+
+Instructor home screen with classes and students
+
+Student home screen with classes
+
+Add class collection to database.
+
+Add article collection to database.
+
+Add result visualization pages
+

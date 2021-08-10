@@ -1,0 +1,28 @@
+If a session with an effective user times out, when the user tries to 
+refresh the pages and is redirected to the login page, after logging in
+the home folder will not be found, because the real user's home folder
+is pulled instead of the effective user.  Refreshing the page again shows
+the effective user's home, but this needs to be fixed.  Perhaps the effective
+user should be cleared on login, as it is on logout?
+
+Furthermore, after logging out of an effective user, and logging back in,
+the previous effective user's home page is shown (until a page refresh).
+This is probably because the folder id's are stored in the user object?
+These need to be cleared/reset on logout/login...
+
+
+###  Wow, these are really old:
+
+admin display of comments:
+	horizontal spacing of elements is bad
+	comment text should be wrapped to make table less wide.
+
+on item not found screen, need to add padding on the left...
+
+Posting a comment on an experiment should clear the text box,
+and give some sort of indication that the comment has indeed been stored...
+
+On paradigm/xxx screen, filtering experiments works but widgets are
+not loaded with contents of URL query string.  Also sort widget is not appearing?
+
+

@@ -1,0 +1,42 @@
+
+************** general notes **********************
+
+There is a database collection userlog, which logs events, but
+the entries don't include timestamps!?  So we can't determine when
+a user was last active!?  We should add timestamps to these records
+going forward!  TODO
+
+
+Footer links don't work (terms of use, license, etc.)
+
+************** public subdirectory *********************
+
+In public/experiment_html, we have small html files that generate the frames
+between blocks in an IAT run (among other things).  I created a new IAT experiment
+a few days ago, and it seems to have created a dozen small duplicate
+files, this seems a bit wasteful.
+
+The directory contains over 25,000 files!?
+The filenames all consist of 16 hex digits...
+
+public/experiment_images has 447 files.  I looked at the contents of one,
+it appeared to be black (junk)...
+
+public/experiment_js doesn't have a lot of files, but among what is there,
+there appears to be some duplication...
+
+public/images contains images that are used in the web site. -But not all!
+
+public/img contains stuff that doesn't display properly (using jpsee).
+Not sure what these things are for...
+
+public/plugins seems to contain more third-party software...
+
+public/tmp is a place where the server writes temporary files before
+downloading...
+
+public/uploads has 596 subdirectories (with unintelligible encrypted names),
+the names appear to be encrypted/coded versions of the usernames.  We need to
+have a way to map these more easily to users, so that we can delete files
+stored by inactive users.
+

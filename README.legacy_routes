@@ -1,0 +1,118 @@
+Page routes (legacy system)
+
+GET
+
+/				(index)
+/login				(login)
+/reset				(reset)
+/new_pw				(new_pw)
+/signup				(signup)
+/contact			(contact)
+/edit/experiment/:exptId	(editing)
+/edit/profile/			(profileEdit)
+
+/signout			->	/
+/about/us			->	/
+/about/tellab			->	/
+/edit/experiment/		->	/edit/experiment/:newExptId
+
+/home				(home)
+/home/profile			(profileEdit)
+/home/experiments		(home_experiments)
+/home/groups			(home_groups_instructorview)
+				(home_groups_studentview)
+/home/groups/:groupId		(home_groups_instructorview)
+				(home_groups_studentview)
+
+/show/paradigm			(paradigmlist)
+/show/paradigm/:name		(experimentlist)
+/show/paradigm/:name/:id	(experimentpage)
+/show/paradigm/:name/:id/group/:groupId	(experimentpage)
+/show/paradigm/:name/:exptId/content	(pages/experiment_XXX)
+/show/paradigm/preview/:name/:exptId/content	(pages/experiment_XXX)
+/show/paradigm/preview/:name/:exptId	(previewexperimentpage)
+/show/result/:id		(result)
+
+POST
+
+
+
+API routes (legacy system)
+
+
+GET
+
+/count/result/:exptId
+/count/like/:exptId
+/count/dislike/:exptId
+/count/comment/:exptId
+
+/edit/copy/experiment/:exptId
+/edit/preview/experiment/:exptId
+/edit/publish/experiment/:exptId
+/edit/save/experiment/:exptId
+/edit/pause/experiment/:exptId
+/edit/delete/experiment/:exptId
+/edit/new/experiment/:paradigm
+
+/experiment/groupExperimentLink
+/experiment/describe/paradigm/:name
+/experiment/describe/self/:exptId
+/experiment/dislike/:exptId		# gets true or false based on user
+/experiment/like/:exptId		# gets true or false based on user
+
+/group/enroll
+
+/home/groups/:groupId/removestudent
+/home/groups/:groupId/changename?newname=XXX	# new name from query params
+/home/groups/:groupId/deletegroup
+/home/groups/:groupId/quitgroup		# what does this do?
+/home/groups/:groupId/changestartdate
+/home/groups/:groupId/changeenddate
+/home/groups/:groupId/addexperiment
+/home/groups/:groupId/removeexperiment
+/home/groups/:groupId/completiondetail/:exptId
+
+/result?username=XXX&eid=YYY
+/result/save				# does not save, gets results for user
+/result/save/:id/update?eid=XXX&score=YYY	# :id param not used???
+						# updates experiment_analytics
+/result/save/:resultId			# gets something from experiment_analytics
+/result/download/:exptId
+/result/groupid/:id/:exptId
+
+/show/comment/:exptId
+
+/user/groups
+/user/myexperiments
+/user/notifyResult
+/user/userlogreport		# writes to log
+
+POST
+
+/login			(causes redirect!)
+/reset
+/new_pw
+/signup
+
+/edit/preview/experiment
+/edit/publish/experiment
+/edit/save/experiment
+/edit/profile			-> /home
+/edit/paradigm/:name		[updates description?]
+
+/experiment/like/:exptId
+/experiment/dislike/:exptId
+
+/file				# saves file to public/experiment_htmls
+/file/update			# saves file to public/experiment_htmls
+
+/group				# creates new group?
+
+/result/save
+
+DELETE
+
+/experiment/like/:exptId
+/experiment/dislike/:exptId
+

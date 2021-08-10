@@ -1,0 +1,117 @@
+Notes on porting to XSEDE
+
+single sign-on portal:  login.xsede.org
+
+xsede user portal: https://portal.xsede.org/
+
+Jetstream:
+
+Jetstream is accessible ONLY via web interface
+https://use.jetstream-cloud.org/
+or via API using XSEDE credentials via Globus Auth.
+- NOT TRUE:  but initial access with ssh fails, there is something
+that needs to be done...
+On new instance dev-api, the keys were installed automatically (thank
+you jetstream config!), but ssh still fails - what is the secret sauce?
+
+
+Jetstream instances:
+
+tellab_jump_host	single point of entry for ssh access
+			to other instances
+
+tellab_dev_database	mongodb server for testing
+
+tellab2_server		express server for first rewrite of original system
+
+tellab_legacy		copy of original system taken from AWS
+
+plw_server		serves react single-page app
+
+tellab_portal		static web content, replaces old Harvard site
+
+
+_______________________________________________
+
+Dreamhost
+
+Tellab uses dreamhost.com for domain name registration.
+
+The subdomains are handled with Manage Domains -> DNS.
+
+See this article:  https://help.dreamhost.com/hc/en-us/articles/215414867#A_record
+
+_______________________________________________
+
+Setting up an express server on ubuntu
+
+_______________________________________________
+
+
+_______________________________________________
+
+Installing nvm on ubuntu
+
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
+
+
+more stuff to install, that I documented somewhere...
+
+npm install -g forever
+_______________________________________________
+
+----------old README file from proddb/vol_b--------
+
+Changes to /etc/mongodb.conf
+
+Changed bind_ip to the value reported by ifconfig - this is not the
+external ip address returned by the DNS!
+
+Uncommented port definition.  This was probably set to the default value
+and so uncommenting this without changing it should have had no effect?
+
+IMPORTANT NOTE:  This has to be redone each time the instance is shelved/unshelved
+because the IP address changes!
+
+-----------------------------------------
+
+To restart the server:
+
+% sudo service mongodb restart
+
+________________________________________
+
+Set up mongod for authentication, so any old person can't connect
+to our database
+See https://docs.mongodb.com/manual/tutorial/enable-authentication/
+
+It appears that after restoring the entire database from a backup,
+the admin users may have been restored also?
+
+verify:
+
+% mongo < list_users.mongo
+_________________________
+
+mongo shell commands to create userAdmin:
+
+use admin
+db.createUser(
+  {
+    user: "myUserAdmin",
+    pwd: "adminPW4tellabDB",
+    roles: [ { role: "userAdminAnyDatabase", db: "admin" }, "readWriteAnyDatabase" ]
+  }
+)
+
+------------------------------------
+
+The command in make_admin.mongo make a user a tellab administrator (not a database admin)
+
+-------------------------------------
+
+The commands in createUserAdmin.mongo creates the database admin user.
+We can connect on localhost with the command:
+% mongo admin -u myUserAdmin -p
+BUT that does not seem to work for a remote connection?
+

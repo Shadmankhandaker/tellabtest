@@ -1,0 +1,40 @@
+How to set up from a freshly cloned repo:
+
+Now most of the initial set-up can be accomplished
+simply run running "make" from the top-level directory.
+
+This does a number of things:
+
+1)  Creates a self-signed certificate by running scripts
+in admin_scripts/openssl
+
+2)  Installs npm modules in pageServer and apiServer
+
+3)  Creates javascript constants files (to insure consistency
+between the client and the server)
+
+What is NOT done:  linking the "public" directory.
+
+The public directory contains a lot of stuff from the legacy system
+that hasn't been fully integrated into the new revision, plus user
+uploads...  All stuff that is no longer part of the repo, and needs to
+be cleaned up.
+
+# Certificates:
+# On the public servers, the certificates are created with certbot
+# and letsencrypt, but for development it is simpler to use
+# a self-signed certificate; in order for the browser to accept this,
+# the root cert must be trusted explicitly...
+
+# Make sure HOSTNAME and PAGE_SERVER_HOST are defined in the environment:
+# HOSTNAME is used by installConstants.csh (also installConstants.sh), and
+# may be left undefined for default behavior.
+# (BUT WHAT IS THE DEFAULT BEHAVIOR???)
+# On my development system, HOSTNAME is set to nitsuga.jbm.net - which is
+# NOT the real hostname, but apparently it doesn't matter because
+# it is just used to compare to other possible values in a script
+# that determines whether the system is production or development???
+#
+# PAGE_SERVER_HOST is critical for proper CORS settings.
+# On development systems, this should be set to localhost:3010
+

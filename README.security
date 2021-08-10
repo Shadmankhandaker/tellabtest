@@ -1,0 +1,27 @@
+Notes on hardening systems
+
+Unfortunately done after prod-db was hacked and the database wiped!?
+
+
+####################################
+
+Changes to /etc/ssh/sshd_config
+
+changed:
+Port 16080
+PermitRootLogin no
+AllowTcpForwarding no
+PasswordAuthentication no
+PermitRootLogin no
+
+added:
+AllowUsers jbmull
+Protocol 2
+MaxSessions 2
+
+
+After making changes, run sudo service sshd restart
+
+#######################################
+
+

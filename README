@@ -1,0 +1,20 @@
+How to start tellab:
+
+First, mongodb must be running...
+
+% node app.js
+
+
+/***************************************/
+
+Program structure
+
+app.js loads (via 'require') modules, including most
+of the files in subdir 'routes'.  These are linked in
+by calling app.use with different path components.  Presumably
+the path components referenced in the route files are
+all tacked onto these prefixes.  These in turn make calls
+to res.render, which appear to reference .ejs files
+in subdir views.  These contain stuff that looks a lot like
+html, but with some extra goodies.
+

@@ -1,0 +1,103 @@
+Page routes - development system
+
+# The system has been redesgined with many pages having tabs.
+# In general, the first route component specifies the page, the
+# second the tab.
+
+GET
+
+/
+/passport/login
+/passport/reset
+/passport/new_pw
+/passport/signup
+
+/documentation
+/documentation/user_guide
+/documentation/manual
+/documentation/programming
+/documentation/user_guide/edit/:id
+/documentation/manual/edit/:id
+/documentation/programming/edit/:id
+
+/welcome
+/welcome/stats
+/welcome/instructors
+/welcome/students
+/welcome/contact
+
+/overview
+/overview/about
+/overview/history
+/overview/people
+/overview/contact
+
+/experiments
+/experiments/featured
+/experiments/all
+/experiments/all/show/:id
+
+# These appear to be the oneExpt tabs that are actually used!?!?
+/experiments/show/:id
+/experiments/run/:id
+/experiments/legacy/run/:id
+
+# oneExpt tabs
+/experiments/:id/overview
+/experiments/:id/run
+
+# routes used when the user is logged in
+/home
+/home/featured
+/home/experiments
+/home/data
+/home/activity
+/home/activity/show/:id
+
+/support
+/support/faq
+/support/faq/ask
+/support/forum
+/support/bugs
+/support/bugs/report
+/support/bugs/show/:id
+/support/bugs/edit/:id
+/support/bugs/edit/:id/comment
+/support/contact
+/support/contact/new
+
+/profile
+
+# These routes should require a user AND admin role
+/admin
+
+/admin/users
+/admin/users/show/:id
+/admin/users/edit/:id
+
+/admin/logs
+/admin/logs/show/:id
+
+/admin/tables
+/admin/tables/:collectionName
+/admin/tables/:collectionName/show/:id
+
+# special routes for delving into experiments.
+# These may not be needed after the experiments are cleaned up...
+/admin/tables/:collectionName/show/:id/:propName
+/admin/tables/:collectionName/show/:id/:propName/:index/:subPropName
+/admin/tables/:collectionName/show/:id/:propName/:idx1/:subPropName/:idx2/:subSubPropName
+
+/admin/docs
+/admin/docs/new
+/admin/docs/edit/:id
+/admin/docs/show/:id
+/admin/docs/preview/:id
+
+/admin/email
+/admin/email/compose
+/admin/email/edit/:id
+/admin/email/show/:id
+
+/image
+
